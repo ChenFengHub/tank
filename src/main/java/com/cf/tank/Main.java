@@ -16,7 +16,7 @@ public class Main {
 
         // 1. 初始化地方坦克
         for(int i =0; i < 5; ++i) {
-            Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.ENEMY);
+            Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.BAD);
             tank.setMoving(MOVINE);
             tankFrame.getEnemies().add(tank);
         }

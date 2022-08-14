@@ -18,7 +18,7 @@ public class Bullet {
     private DirEnum dir = DirEnum.DOWN;
     private TankFrame tf = null;
     private Boolean living = true;
-    private Group group = Group.ENEMY;
+    private Group group = Group.BAD;
 
     public Bullet(int x, int y, DirEnum dir, TankFrame tf, Group group) {
         this.x = x;
@@ -87,7 +87,9 @@ public class Bullet {
         Rectangle b = new Rectangle(x, y, BULLET_WIDTH, BULLET_HEIGH);
         Rectangle t = new Rectangle(tank.getX(), tank.getY(), tank.TANK_WIDTH, tank.TANK_HEIGH);
         if(b.intersects(t) && !tank.getGroup().equals(group)) {
-            tf.getExplodes().add(new Explode(tank.getX(), tank.getY(), tf));
+            int eX = tank.getX() + tank.TANK_WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + tank.TANK_HEIGH/2 - Explode.HEIGH/2;
+            tf.getExplodes().add(new Explode(eX, eY, tf));
             this.die();
             tank.die();
         }

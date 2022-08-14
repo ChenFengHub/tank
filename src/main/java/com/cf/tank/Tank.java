@@ -19,7 +19,7 @@ public class Tank {
     private Boolean moving = false;
     private TankFrame tf;
     private Boolean living = true;
-    private Group group = Group.ENEMY;
+    private Group group = Group.BAD;
     private Random random = new Random();
 
     public Group getGroup() {
@@ -101,7 +101,7 @@ public class Tank {
     }
 
     private void autoAction() {
-        if (group.equals(Group.ENEMY)) {
+        if (group.equals(Group.BAD)) {
             randomFire();
             randomDir();
             move();

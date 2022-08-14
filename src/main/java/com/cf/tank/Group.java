@@ -7,5 +7,5 @@ package com.cf.tank;
  * @create: 2022-08-13 17:17:43
  */
 public enum  Group {
-    MY, ENEMY;
+    GOOD, BAD;
 }
