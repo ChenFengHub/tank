@@ -21,6 +21,20 @@ public class Tank {
     private Boolean living = true;
     private Group group = Group.BAD;
     private Random random = new Random();
+    private Rectangle rectangle;
+
+
+    public Tank(int x, int y, DirEnum dir, TankFrame tf, Group group) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.tf = tf;
+        this.group = group;
+
+        rectangle = new Rectangle();
+        rectangle.height = TANK_HEIGH;
+        rectangle.width = TANK_WIDTH;
+    }
 
     public Group getGroup() {
         return group;
@@ -76,15 +90,6 @@ public class Tank {
     }
 
 
-    public Tank(int x, int y, DirEnum dir, TankFrame tf, Group group) {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-        this.tf = tf;
-        this.group = group;
-    }
-
-
     public void paint(Graphics g) {
 //        Color c = g.getColor();
 //        g.setColor(Color.YELLOW);
@@ -98,6 +103,10 @@ public class Tank {
         g.drawImage(choseTankImage(), x, y, null);
 
         autoAction();
+
+        // 1. 用于更新区域，可用于判断与其他坦克是否有碰撞
+        rectangle.x = x;
+        rectangle.y = y;
     }
 
     private void autoAction() {
@@ -160,5 +169,9 @@ public class Tank {
 
     public Boolean getLiving() {
         return living;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
     }
 }

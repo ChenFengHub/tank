@@ -19,6 +19,7 @@ public class Bullet {
     private TankFrame tf = null;
     private Boolean living = true;
     private Group group = Group.BAD;
+    private Rectangle rectangle;
 
     public Bullet(int x, int y, DirEnum dir, TankFrame tf, Group group) {
         this.x = x;
@@ -26,6 +27,9 @@ public class Bullet {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+        rectangle = new Rectangle();
+        rectangle.width = BULLET_WIDTH;
+        rectangle.height = BULLET_HEIGH;
     }
 
     public void paint(Graphics g) {
@@ -39,6 +43,10 @@ public class Bullet {
         }
         g.drawImage(choseBulletImage(), x, y, null);
         move();
+
+        // 1. 用于更新区域，可用于判断与其他坦克是否有碰撞
+        rectangle.x = x;
+        rectangle.y = y;
     }
 
     private BufferedImage choseBulletImage() {
@@ -84,9 +92,7 @@ public class Bullet {
     }
 
     public void collideWith(Tank tank) {
-        Rectangle b = new Rectangle(x, y, BULLET_WIDTH, BULLET_HEIGH);
-        Rectangle t = new Rectangle(tank.getX(), tank.getY(), tank.TANK_WIDTH, tank.TANK_HEIGH);
-        if(b.intersects(t) && !tank.getGroup().equals(group)) {
+        if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
             int eX = tank.getX() + tank.TANK_WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + tank.TANK_HEIGH/2 - Explode.HEIGH/2;
             tf.getExplodes().add(new Explode(eX, eY, tf));
