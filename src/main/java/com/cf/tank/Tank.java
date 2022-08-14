@@ -11,7 +11,7 @@ import java.util.Random;
  * @create: 2022-08-13 01:01:37
  */
 public class Tank {
-    public final int TANK_WIDTH = ResourceMgr.tankL.getWidth(), TANK_HEIGH = ResourceMgr.tankL.getHeight();
+    public final int TANK_WIDTH = ResourceMgr.goodTankL.getWidth(), TANK_HEIGH = ResourceMgr.goodTankL.getHeight();
     private int x;
     private int y;
     private DirEnum dir = DirEnum.DOWN;
@@ -142,15 +142,15 @@ public class Tank {
     private BufferedImage choseTankImage() {
         switch (dir) {
             case LEFT:
-                return ResourceMgr.tankL;
+                return group.equals(Group.GOOD) ? ResourceMgr.goodTankL : ResourceMgr.badTankL;
             case RIGHT:
-                return ResourceMgr.tankR;
+                return group.equals(Group.GOOD) ? ResourceMgr.goodTankR : ResourceMgr.badTankR;
             case UP:
-                return ResourceMgr.tankU;
+                return group.equals(Group.GOOD) ? ResourceMgr.goodTankU : ResourceMgr.badTankU;
             case DOWN:
-                return ResourceMgr.tankD;
+                return group.equals(Group.GOOD) ? ResourceMgr.goodTankD : ResourceMgr.badTankD;
             default:
-                return ResourceMgr.tankL;
+                return group.equals(Group.GOOD) ? ResourceMgr.goodTankL : ResourceMgr.badTankL;
         }
     }
 
