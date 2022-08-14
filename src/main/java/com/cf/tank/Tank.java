@@ -17,7 +17,6 @@ public class Tank {
     private DirEnum dir = DirEnum.DOWN;
     private static final int SPEED = 5;
     private Boolean moving = false;
-    private Boolean autoMoving = false;
     private TankFrame tf;
     private Boolean living = true;
     private Group group = Group.ENEMY;
@@ -37,10 +36,6 @@ public class Tank {
 
     public void setMoving(Boolean moving) {
         this.moving = moving;
-    }
-
-    public void setAutoMoving(Boolean autoMoving) {
-        this.autoMoving = autoMoving;
     }
 
 
@@ -106,7 +101,7 @@ public class Tank {
     }
 
     private void autoAction() {
-        if (autoMoving) {
+        if (group.equals(Group.ENEMY)) {
             randomFire();
             randomDir();
             move();
@@ -121,24 +116,26 @@ public class Tank {
 
     private void randomDir() {
         if (random.nextInt(10) > 7) {
-            int randomDir = random.nextInt(4);
-            switch (randomDir) {
-                case 0:
-                    dir = DirEnum.UP;
-                    break;
-                case 1:
-                    dir = DirEnum.DOWN;
-                    break;
-                case 2:
-                    dir = DirEnum.LEFT;
-                    break;
-                case 3:
-                    dir = DirEnum.RIGHT;
-                    break;
-                default:
-                    dir = DirEnum.DOWN;
-                    break;
-            }
+//            int randomDir = random.nextInt(4);
+//            switch (randomDir) {
+//                case 0:
+//                    dir = DirEnum.UP;
+//                    break;
+//                case 1:
+//                    dir = DirEnum.DOWN;
+//                    break;
+//                case 2:
+//                    dir = DirEnum.LEFT;
+//                    break;
+//                case 3:
+//                    dir = DirEnum.RIGHT;
+//                    break;
+//                default:
+//                    dir = DirEnum.DOWN;
+//                    break;
+//            }
+            // 简化写法
+            dir = DirEnum.values()[random.nextInt(4)];
         }
     }
 

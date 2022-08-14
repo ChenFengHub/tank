@@ -18,7 +18,6 @@ public class Main {
         for(int i =0; i < 5; ++i) {
             Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.ENEMY);
             tank.setMoving(MOVINE);
-            tank.setAutoMoving(MOVINE);
             tankFrame.getEnemies().add(tank);
         }
 
