@@ -9,13 +9,15 @@ package com.cf.tank;
  */
 public class Main {
 
-    private static final Boolean MOVINE= true;
+    private static final Boolean MOVINE = true;
 
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
 
         // 1. 初始化地方坦克
-        for(int i =0; i < 5; ++i) {
+
+        Integer initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount") == null ? "0" : PropertyMgr.get("initTankCount").toString());
+        for (int i = 0; i < initTankCount; ++i) {
             Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.BAD);
             tank.setMoving(MOVINE);
             tankFrame.getEnemies().add(tank);
