@@ -16,7 +16,7 @@ public class Main {
 
         // 1. 初始化地方坦克
 
-        Integer initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount") == null ? "0" : PropertyMgr.get("initTankCount").toString());
+        Integer initTankCount = PropertyMgr.getInt("initTankCount");
         for (int i = 0; i < initTankCount; ++i) {
             Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.BAD);
             tank.setMoving(MOVINE);

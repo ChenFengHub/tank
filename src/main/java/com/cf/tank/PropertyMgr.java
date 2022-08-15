@@ -27,6 +27,20 @@ public class PropertyMgr {
         return props.get(key);
     }
 
+    public static Integer getInt(String key) {
+        if(props == null) {
+            return null;
+        }
+        return PropertyMgr.getStr(key) == null? null : Integer.parseInt(PropertyMgr.getStr(key));
+    }
+
+    public static String getStr(String key) {
+        if(props == null) {
+            return null;
+        }
+        return props.get(key) == null? null : props.get(key).toString();
+    }
+
     //int getInt(key)
     //getString(key)
 

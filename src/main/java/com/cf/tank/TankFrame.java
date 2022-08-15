@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
 
-    public int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    public int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
     private Tank tank1 = new Tank(100, 60, DirEnum.DOWN, this, Group.GOOD);
 
     private List<Tank> enemies = new ArrayList<>();
