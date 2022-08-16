@@ -9,7 +9,7 @@ package com.cf.tank.singleton;
  * @create: 2022-08-16 21:21:09
  */
 public class Singleton06 {
-    private static Singleton06 INSTANCE;
+    private static volatile Singleton06 INSTANCE;
     private Singleton06(){}
     public static Singleton06 getInstance() {
         if(INSTANCE == null) {
