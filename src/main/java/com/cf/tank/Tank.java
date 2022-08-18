@@ -1,7 +1,12 @@
 package com.cf.tank;
 
+import com.cf.tank.strategy.DefaultFireStrategy;
+import com.cf.tank.strategy.FireStrategy;
+import com.cf.tank.strategy.FourDirFireStrategy;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
@@ -11,7 +16,7 @@ import java.util.Random;
  * @create: 2022-08-13 01:01:37
  */
 public class Tank {
-    public final int TANK_WIDTH = ResourceMgr.goodTankL.getWidth(), TANK_HEIGH = ResourceMgr.goodTankL.getHeight();
+    public static final int WIDTH = ResourceMgr.goodTankL.getWidth(), HEIGH = ResourceMgr.goodTankL.getHeight();
     private int x;
     private int y;
     private DirEnum dir = DirEnum.DOWN;
@@ -22,7 +27,7 @@ public class Tank {
     private Group group = Group.BAD;
     private Random random = new Random();
     private Rectangle rectangle;
-
+    private FireStrategy fs;
 
     public Tank(int x, int y, DirEnum dir, TankFrame tf, Group group) {
         this.x = x;
@@ -32,8 +37,25 @@ public class Tank {
         this.group = group;
 
         rectangle = new Rectangle();
-        rectangle.height = TANK_HEIGH;
-        rectangle.width = TANK_WIDTH;
+        rectangle.height = HEIGH;
+        rectangle.width = WIDTH;
+        try {
+            if (Group.GOOD.equals(group)) {
+                fs = (FireStrategy) Class.forName(PropertyMgr.getStr("goodFS")).getDeclaredConstructor().newInstance();
+            } else {
+                fs = (FireStrategy) Class.forName(PropertyMgr.getStr("badFS")).newInstance();
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
     public Group getGroup() {
@@ -59,10 +81,7 @@ public class Tank {
     }
 
     public void fire() {
-        int bX = x + TANK_WIDTH / 2 - Bullet.BULLET_WIDTH / 2;
-        int bY = y + TANK_HEIGH / 2 - Bullet.BULLET_HEIGH / 2;
-        Bullet bullet = new Bullet(bX, bY, dir, tf, group);
-        tf.addBullet(bullet);
+        fs.fire(this);
     }
 
     private void move() {
@@ -74,7 +93,7 @@ public class Tank {
                 break;
             case RIGHT:
                 x += SPEED;
-                x = x > tf.GAME_WIDTH -50? tf.GAME_WIDTH -50: x;
+                x = x > tf.GAME_WIDTH - 50 ? tf.GAME_WIDTH - 50 : x;
                 break;
             case UP:
                 y -= SPEED;
@@ -82,7 +101,7 @@ public class Tank {
                 break;
             case DOWN:
                 y += SPEED;
-                y = y > tf.GAME_HEIGHT-50 ? tf.GAME_HEIGHT-50 : y;
+                y = y > tf.GAME_HEIGHT - 50 ? tf.GAME_HEIGHT - 50 : y;
                 break;
             default:
                 break;
@@ -173,5 +192,13 @@ public class Tank {
 
     public Rectangle getRectangle() {
         return rectangle;
+    }
+
+    public DirEnum getDir() {
+        return dir;
+    }
+
+    public TankFrame getTf() {
+        return tf;
     }
 }

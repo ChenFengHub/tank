@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  */
 public class Bullet {
 
-    public static final int BULLET_WIDTH = ResourceMgr.bulletL.getWidth(), BULLET_HEIGH = ResourceMgr.bulletL.getHeight();
+    public static final int WIDTH = ResourceMgr.bulletL.getWidth(), HEIGH = ResourceMgr.bulletL.getHeight();
 
     private final int SPEED = 10;
     private int x, y;
@@ -28,8 +28,9 @@ public class Bullet {
         this.tf = tf;
         this.group = group;
         rectangle = new Rectangle();
-        rectangle.width = BULLET_WIDTH;
-        rectangle.height = BULLET_HEIGH;
+        rectangle.width = WIDTH;
+        rectangle.height = HEIGH;
+        tf.getBullets().add(this);
     }
 
     public void paint(Graphics g) {
@@ -93,8 +94,8 @@ public class Bullet {
 
     public void collideWith(Tank tank) {
         if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
-            int eX = tank.getX() + tank.TANK_WIDTH/2 - Explode.WIDTH/2;
-            int eY = tank.getY() + tank.TANK_HEIGH/2 - Explode.HEIGH/2;
+            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + Tank.HEIGH/2 - Explode.HEIGH/2;
             tf.getExplodes().add(new Explode(eX, eY, tf));
             this.die();
             tank.die();
