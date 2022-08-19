@@ -11,14 +11,14 @@ import com.cf.tank.*;
 public class FourDirFireStrategy implements FireStrategy {
     @Override
     public void fire(Tank tank) {
-        int bX = tank.getX() + Tank.WIDTH/2 - Bullet.WIDTH/2;
-        int bY = tank.getY() + Tank.HEIGH/2 - Bullet.HEIGH/2;
+        int bX = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int bY = tank.getY() + Tank.HEIGH / 2 - Bullet.HEIGH / 2;
         DirEnum[] bullets = DirEnum.values();
-        for(DirEnum bullet : bullets) {
-            new Bullet(bX, bY, bullet, tank.getTf(), tank.getGroup());
+        for (DirEnum bullet : bullets) {
+            new Bullet(bX, bY, bullet, tank.getGroup(), tank.getTf());
         }
-        if(tank.getGroup().equals(Group.GOOD)) {
-            new Thread(()->{
+        if (tank.getGroup().equals(Group.GOOD)) {
+            new Thread(() -> {
                 new Audio("audio/tank_fire.wav");
             });
         }

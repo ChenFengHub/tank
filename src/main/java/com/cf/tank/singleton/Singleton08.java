@@ -5,7 +5,7 @@ import java.util.Random;
 /**
  * @program: design-pattern-tank
  * @description: 完美实现方式2（最完美）：枚举。不仅可以解决多线程安全问题，还可以防止反序列化。
- * 枚举类无法被反序列化（通过反射），是因为枚举类没有构造方法（Java语法规定，其字节码是一个 abstract class）。
+ * 枚举类无法被反序列化（通过反射），是因为枚举类没有构造方法（Java语法规定，其字节码是一个 abstractfy class）。
  * @author: Mr.CF
  * @create: 2022-08-16 21:21:28
  */

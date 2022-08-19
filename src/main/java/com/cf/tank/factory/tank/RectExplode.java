@@ -1,6 +1,8 @@
-package com.cf.tank;
+package com.cf.tank.factory.tank;
 
-import com.cf.tank.factory.tank.BaseExplode;
+import com.cf.tank.Audio;
+import com.cf.tank.ResourceMgr;
+import com.cf.tank.TankFrame;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -9,9 +11,9 @@ import java.awt.image.BufferedImage;
  * @program: design-pattern-tank
  * @description: 类功能描述
  * @author: Mr.CF
- * @create: 2022-08-13 20:20:20
+ * @create: 2022-08-19 07:07:56
  */
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGH = ResourceMgr.explodes[0].getHeight();
 
@@ -21,7 +23,7 @@ public class Explode extends BaseExplode {
     private TankFrame tf = null;
     private Boolean living = true;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -34,14 +36,15 @@ public class Explode extends BaseExplode {
     @Override
     public void paint(Graphics g) {
         if(living){
-            BufferedImage image = ResourceMgr.explodes[step];
-            g.drawImage(image, x, y, null);
+            Color c = g.getColor();
+            g.setColor(Color.RED);
+            g.fillRect(x, y, 10 * step, 10 * step);
             step++;
-            if(step >= 16) {
+            if(step > 5) {
                 living = false;
                 tf.getExplodes().remove(this);
             }
+            g.setColor(c);
         }
     }
-
 }

@@ -1,6 +1,10 @@
 package com.cf.tank;
 
 
+import com.cf.tank.factory.tank.BaseTank;
+import com.cf.tank.factory.tank.DefaultFactory;
+import com.cf.tank.factory.tank.RectFactory;
+
 /**
  * @program: design-pattern-tank
  * @description: 类功能描述
@@ -18,8 +22,7 @@ public class Main {
 
         Integer initTankCount = PropertyMgr.getInt("initTankCount");
         for (int i = 0; i < initTankCount; ++i) {
-            Tank tank = new Tank(50 + i * 80, 200, DirEnum.DOWN, tankFrame, Group.BAD);
-            tank.setMoving(MOVINE);
+            BaseTank tank = tankFrame.rectFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD, tankFrame);
             tankFrame.getEnemies().add(tank);
         }
 

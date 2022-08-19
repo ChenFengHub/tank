@@ -1,5 +1,7 @@
 package com.cf.tank;
 
+import com.cf.tank.factory.tank.*;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -17,15 +19,20 @@ import java.util.List;
 public class TankFrame extends Frame {
 
     public int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-    private Tank tank1 = new Tank(100, 60, DirEnum.DOWN, this, Group.GOOD);
+    private Tank tank1 = new Tank(100, 60, DirEnum.DOWN, Group.GOOD, this);
 
-    private List<Tank> enemies = new ArrayList<>();
-    private List<Bullet> bullets = new ArrayList<Bullet>();
-    private List<Explode> explodes = new ArrayList<>();
+    private List<BaseTank> enemies = new ArrayList<>();
+    private List<BaseBullet> bullets = new ArrayList<>();
+    private List<BaseExplode> explodes = new ArrayList<>();
+
+    /** 这里可以通过配置文件，动态切换一套皮肤 **/
+    public GameAbsFactory gf = new RectFactory();
+
+    /** 全部的抽象工厂 **/
+    public DefaultFactory defaultFactory = new DefaultFactory();
+    public RectFactory rectFactory = new RectFactory();
 
     public TankFrame() {
-
-
         setSize(GAME_WIDTH, GAME_HEIGHT);
         setResizable(false);
         setTitle("cf tank");
@@ -44,19 +51,19 @@ public class TankFrame extends Frame {
 
     }
 
-    public void setEnemies(List<Tank> enemies) {
+    public void setEnemies(List<BaseTank> enemies) {
         this.enemies = enemies;
     }
 
-    public List<Tank> getEnemies() {
+    public List<BaseTank> getEnemies() {
         return enemies;
     }
 
-    public List<Bullet> getBullets() {
+    public List<BaseBullet> getBullets() {
         return bullets;
     }
 
-    public List<Explode> getExplodes() {
+    public List<BaseExplode> getExplodes() {
         return explodes;
     }
 
@@ -87,7 +94,7 @@ public class TankFrame extends Frame {
 
     private void paintEnemies(Graphics g) {
         for (int i = 0; i < enemies.size(); ++i) {
-            Tank enemy = enemies.get(i);
+            BaseTank enemy = enemies.get(i);
             enemy.paint(g);
         }
     }
@@ -100,7 +107,7 @@ public class TankFrame extends Frame {
 //            }
 //        });
         for (int i = 0; i < bullets.size(); i++) {
-            Bullet bullet = bullets.get(i);
+            BaseBullet bullet = bullets.get(i);
             bullet.paint(g);
         }
     }
@@ -113,10 +120,6 @@ public class TankFrame extends Frame {
         g.setColor(c);
 
         tank1.paint(g);
-    }
-
-    public void addBullet(Bullet bullet) {
-        bullets.add(bullet);
     }
 
     /**
@@ -182,9 +185,7 @@ public class TankFrame extends Frame {
 
         private void setTankDirection() {
             if (!dL && !dR && !dU && !dD) {
-                tank1.setMoving(false);
             } else {
-                tank1.setMoving(true);
                 if (dL) {
                     tank1.setDir(DirEnum.LEFT);
                 }
@@ -218,9 +219,6 @@ public class TankFrame extends Frame {
                     break;
                 default:
                     break;
-            }
-            if (!dL && !dR && !dU && !dD) {
-                tank1.setMoving(false);
             }
         }
     }

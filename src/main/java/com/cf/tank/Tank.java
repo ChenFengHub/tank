@@ -1,13 +1,11 @@
 package com.cf.tank;
 
-import com.cf.tank.strategy.DefaultFireStrategy;
+import com.cf.tank.factory.tank.BaseTank;
 import com.cf.tank.strategy.FireStrategy;
-import com.cf.tank.strategy.FourDirFireStrategy;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
 /**
  * @program: design-pattern-tank
@@ -15,26 +13,18 @@ import java.util.Random;
  * @author: Mr.CF
  * @create: 2022-08-13 01:01:37
  */
-public class Tank {
+public class Tank extends BaseTank {
     public static final int WIDTH = ResourceMgr.goodTankL.getWidth(), HEIGH = ResourceMgr.goodTankL.getHeight();
-    private int x;
-    private int y;
-    private DirEnum dir = DirEnum.DOWN;
+
     private static final int SPEED = 5;
-    private Boolean moving = false;
-    private TankFrame tf;
-    private Boolean living = true;
-    private Group group = Group.BAD;
-    private Random random = new Random();
-    private Rectangle rectangle;
     private FireStrategy fs;
 
-    public Tank(int x, int y, DirEnum dir, TankFrame tf, Group group) {
+    public Tank(int x, int y, DirEnum dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
         this.group = group;
+        this.tf = tf;
 
         rectangle = new Rectangle();
         rectangle.height = HEIGH;
@@ -58,67 +48,25 @@ public class Tank {
         }
     }
 
-    public Group getGroup() {
-        return group;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setMoving(Boolean moving) {
-        this.moving = moving;
-    }
-
-
     public void setDir(DirEnum dir) {
         this.dir = dir;
-        move();
+        updateCoordinate(SPEED);
     }
 
+    @Override
     public void fire() {
-        fs.fire(this);
+        int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = y + Tank.HEIGH/2 - Bullet.HEIGH/2;
+        tf.defaultFactory.createBullet(bX, bY, dir, group, tf);
     }
 
-    private void move() {
-        if (!moving) return;
-        switch (dir) {
-            case LEFT:
-                x -= SPEED;
-                x = x < 0 ? 0 : x;
-                break;
-            case RIGHT:
-                x += SPEED;
-                x = x > tf.GAME_WIDTH - 50 ? tf.GAME_WIDTH - 50 : x;
-                break;
-            case UP:
-                y -= SPEED;
-                y = y < 0 ? 0 : y;
-                break;
-            case DOWN:
-                y += SPEED;
-                y = y > tf.GAME_HEIGHT - 50 ? tf.GAME_HEIGHT - 50 : y;
-                break;
-            default:
-                break;
-        }
-    }
-
-
+    @Override
     public void paint(Graphics g) {
 //        Color c = g.getColor();
 //        g.setColor(Color.YELLOW);
 //        System.out.println("pait x, y:" + x + "   " + y);
 //        g.fillRect(x, y, 60, 50);
 //        g.setColor(c);
-        if (!living) {
-            tf.getEnemies().remove(this);
-            return;
-        }
         g.drawImage(choseTankImage(), x, y, null);
 
         autoAction();
@@ -128,44 +76,7 @@ public class Tank {
         rectangle.y = y;
     }
 
-    private void autoAction() {
-        if (group.equals(Group.BAD)) {
-            randomFire();
-            randomDir();
-            move();
-        }
-    }
 
-    private void randomFire() {
-        if (random.nextInt(10) > 7) {
-            fire();
-        }
-    }
-
-    private void randomDir() {
-        if (random.nextInt(10) > 7) {
-//            int randomDir = random.nextInt(4);
-//            switch (randomDir) {
-//                case 0:
-//                    dir = DirEnum.UP;
-//                    break;
-//                case 1:
-//                    dir = DirEnum.DOWN;
-//                    break;
-//                case 2:
-//                    dir = DirEnum.LEFT;
-//                    break;
-//                case 3:
-//                    dir = DirEnum.RIGHT;
-//                    break;
-//                default:
-//                    dir = DirEnum.DOWN;
-//                    break;
-//            }
-            // 简化写法
-            dir = DirEnum.values()[random.nextInt(4)];
-        }
-    }
 
     private BufferedImage choseTankImage() {
         switch (dir) {
@@ -182,16 +93,9 @@ public class Tank {
         }
     }
 
+    @Override
     public void die() {
-        living = false;
-    }
-
-    public Boolean getLiving() {
-        return living;
-    }
-
-    public Rectangle getRectangle() {
-        return rectangle;
+        tf.getEnemies().remove(this);
     }
 
     public DirEnum getDir() {

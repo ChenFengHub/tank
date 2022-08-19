@@ -1,5 +1,8 @@
 package com.cf.tank;
 
+import com.cf.tank.factory.tank.BaseBullet;
+import com.cf.tank.factory.tank.BaseTank;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -9,30 +12,24 @@ import java.awt.image.BufferedImage;
  * @author: Mr.CF
  * @create: 2022-08-13 02:02:35
  */
-public class Bullet {
+public class Bullet extends BaseBullet {
 
     public static final int WIDTH = ResourceMgr.bulletL.getWidth(), HEIGH = ResourceMgr.bulletL.getHeight();
 
-    private final int SPEED = 10;
-    private int x, y;
-    private DirEnum dir = DirEnum.DOWN;
-    private TankFrame tf = null;
-    private Boolean living = true;
-    private Group group = Group.BAD;
-    private Rectangle rectangle;
 
-    public Bullet(int x, int y, DirEnum dir, TankFrame tf, Group group) {
+    public Bullet(int x, int y, DirEnum dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
         this.group = group;
+        this.tf = tf;
         rectangle = new Rectangle();
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
         tf.getBullets().add(this);
     }
 
+    @Override
     public void paint(Graphics g) {
 //        Color c = g.getColor();
 //        g.setColor(Color.RED);
@@ -92,17 +89,4 @@ public class Bullet {
         }
     }
 
-    public void collideWith(Tank tank) {
-        if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
-            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
-            int eY = tank.getY() + Tank.HEIGH/2 - Explode.HEIGH/2;
-            tf.getExplodes().add(new Explode(eX, eY, tf));
-            this.die();
-            tank.die();
-        }
-    }
-
-    private void die() {
-        this.living = false;
-    }
 }
