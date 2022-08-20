@@ -1,6 +1,7 @@
 package com.cf.tank;
 
 import com.cf.tank.factory.tank.BaseBullet;
+import com.cf.tank.factory.tank.BaseExplode;
 import com.cf.tank.factory.tank.BaseTank;
 
 import java.awt.*;
@@ -27,6 +28,11 @@ public class Bullet extends BaseBullet {
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
         tf.getBullets().add(this);
+    }
+
+    @Override
+    protected BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
+        return tf.defaultFactory.createExplode(x, y, group, tf);
     }
 
     @Override

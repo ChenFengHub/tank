@@ -28,6 +28,11 @@ public class RectBullet extends BaseBullet {
     }
 
     @Override
+    protected BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
+        return tf.rectFactory.createExplode(x, y, group, tf);
+    }
+
+    @Override
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.RED);

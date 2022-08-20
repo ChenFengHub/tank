@@ -23,11 +23,15 @@ public abstract class BaseBullet {
         if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGH/2 - Explode.HEIGH/2;
-            tf.gf.createExplode(eX, eY, group, tf);
+
+            createExplode(eX, eY, group, tf);
+            // tf.gf.createExplode(eX, eY, group, tf);
             this.die();
             tank.die();
         }
     }
+
+    protected abstract BaseExplode createExplode(int x, int y, Group group, TankFrame tf);
 
     protected void updateCor(int speed){
         switch (dir) {
