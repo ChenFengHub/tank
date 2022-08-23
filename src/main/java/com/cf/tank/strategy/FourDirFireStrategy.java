@@ -1,6 +1,7 @@
 package com.cf.tank.strategy;
 
 import com.cf.tank.*;
+import com.cf.tank.factory.tank.BaseTank;
 
 /**
  * @program: design-pattern-tank
@@ -10,12 +11,12 @@ import com.cf.tank.*;
  */
 public class FourDirFireStrategy implements FireStrategy {
     @Override
-    public void fire(Tank tank) {
+    public void fire(BaseTank tank) {
         int bX = tank.getX() + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int bY = tank.getY() + Tank.HEIGH / 2 - Bullet.HEIGH / 2;
         DirEnum[] bullets = DirEnum.values();
         for (DirEnum bullet : bullets) {
-            new Bullet(bX, bY, bullet, tank.getGroup(), tank.getTf());
+            new Bullet(bX, bY, bullet, tank.getGroup(), ((Tank)tank).getGm());
         }
         if (tank.getGroup().equals(Group.GOOD)) {
             new Thread(() -> {

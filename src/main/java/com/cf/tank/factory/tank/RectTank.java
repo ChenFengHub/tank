@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
 
@@ -13,11 +14,11 @@ import java.awt.*;
 public class RectTank extends BaseTank {
     public static final int WIDTH = ResourceMgr.goodTankL.getWidth(), HEIGH = ResourceMgr.goodTankL.getHeight();
 
-    public RectTank(int x, int y, DirEnum dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, DirEnum dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
 
         rectangle = new Rectangle();
@@ -29,7 +30,7 @@ public class RectTank extends BaseTank {
     public void fire() {
         int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = y + Tank.HEIGH/2 - Bullet.HEIGH/2;
-        tf.rectFactory.createBullet(bX, bY, dir, group, tf);
+        gm.rectFactory.createBullet(bX, bY, dir, group, gm);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class RectTank extends BaseTank {
 
     @Override
     public void die() {
-        tf.getEnemies().remove(this);
+        gm.getEnemies().remove(this);
     }
 
 }

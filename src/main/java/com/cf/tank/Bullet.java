@@ -1,5 +1,6 @@
 package com.cf.tank;
 
+import com.cf.tank.facade.GameModel;
 import com.cf.tank.factory.tank.BaseBullet;
 import com.cf.tank.factory.tank.BaseExplode;
 import com.cf.tank.factory.tank.BaseTank;
@@ -18,21 +19,21 @@ public class Bullet extends BaseBullet {
     public static final int WIDTH = ResourceMgr.bulletL.getWidth(), HEIGH = ResourceMgr.bulletL.getHeight();
 
 
-    public Bullet(int x, int y, DirEnum dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
         rectangle = new Rectangle();
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        tf.getBullets().add(this);
+        gm.getBullets().add(this);
     }
 
     @Override
-    protected BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
-        return tf.defaultFactory.createExplode(x, y, group, tf);
+    protected BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
+        return gm.defaultFactory.createExplode(x, y, group, gm);
     }
 
     @Override
@@ -41,8 +42,8 @@ public class Bullet extends BaseBullet {
 //        g.setColor(Color.RED);
 //        g.fillOval(x, y, WIDTH, HEIGH);
 //        g.setColor(c);
-        if(!isLive(tf.GAME_WIDTH, tf.GAME_HEIGHT)) {
-            tf.getBullets().remove(this);
+        if(!isLive(TankFrame.GAME_WIDTH, TankFrame.GAME_HEIGHT)) {
+            gm.getBullets().remove(this);
             return;
         }
         g.drawImage(choseBulletImage(), x, y, null);

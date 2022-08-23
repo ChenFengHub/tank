@@ -1,5 +1,6 @@
 package com.cf.tank;
 
+import com.cf.tank.facade.GameModel;
 import com.cf.tank.factory.tank.BaseExplode;
 
 import java.awt.*;
@@ -18,17 +19,17 @@ public class Explode extends BaseExplode {
 
     private int x,y;
     private int step =0;
-    private TankFrame tf = null;
+    private GameModel gm = null;
     private Boolean living = true;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public Explode(int x, int y, GameModel gm) {
         this.x = x;
         this.y = y;
-        this.tf = tf;
+        this.gm = gm;
         new Thread(()->{
             new Audio("audio/explode.wav").play();
         }).start();
-        tf.getExplodes().add(this);
+        gm.getExplodes().add(this);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class Explode extends BaseExplode {
             step++;
             if(step >= 16) {
                 living = false;
-                tf.getExplodes().remove(this);
+                gm.getExplodes().remove(this);
             }
         }
     }

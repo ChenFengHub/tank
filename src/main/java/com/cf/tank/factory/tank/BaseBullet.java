@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
 
@@ -14,7 +15,7 @@ public abstract class BaseBullet {
     protected final int SPEED = 10;
     protected int x, y;
     protected DirEnum dir = DirEnum.DOWN;
-    protected TankFrame tf = null;
+    protected GameModel gm = null;
     protected Boolean living = true;
     protected Group group = Group.BAD;
     protected Rectangle rectangle;
@@ -24,14 +25,14 @@ public abstract class BaseBullet {
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGH/2 - Explode.HEIGH/2;
 
-            createExplode(eX, eY, group, tf);
+            createExplode(eX, eY, group, gm);
             // tf.gf.createExplode(eX, eY, group, tf);
             this.die();
             tank.die();
         }
     }
 
-    protected abstract BaseExplode createExplode(int x, int y, Group group, TankFrame tf);
+    protected abstract BaseExplode createExplode(int x, int y, Group group, GameModel gm);
 
     protected void updateCor(int speed){
         switch (dir) {

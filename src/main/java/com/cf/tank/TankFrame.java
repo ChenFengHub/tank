@@ -1,5 +1,6 @@
 package com.cf.tank;
 
+import com.cf.tank.facade.GameModel;
 import com.cf.tank.factory.tank.*;
 
 import java.awt.*;
@@ -17,20 +18,10 @@ import java.util.List;
  * @create: 2022-08-11 08:08:12
  */
 public class TankFrame extends Frame {
-
-    public int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-    private Tank tank1 = new Tank(100, 60, DirEnum.DOWN, Group.GOOD, this);
-
-    private List<BaseTank> enemies = new ArrayList<>();
-    private List<BaseBullet> bullets = new ArrayList<>();
-    private List<BaseExplode> explodes = new ArrayList<>();
-
+    public static int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
     /** 这里可以通过配置文件，动态切换一套皮肤 **/
     public GameAbsFactory gf = new RectFactory();
-
-    /** 全部的抽象工厂 **/
-    public DefaultFactory defaultFactory = new DefaultFactory();
-    public RectFactory rectFactory = new RectFactory();
+    public GameModel gm = new GameModel();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -51,76 +42,13 @@ public class TankFrame extends Frame {
 
     }
 
-    public void setEnemies(List<BaseTank> enemies) {
-        this.enemies = enemies;
-    }
 
-    public List<BaseTank> getEnemies() {
-        return enemies;
-    }
-
-    public List<BaseBullet> getBullets() {
-        return bullets;
-    }
-
-    public List<BaseExplode> getExplodes() {
-        return explodes;
-    }
 
     @Override
     public void paint(Graphics g) {
-        paintMyTank(g);
-        paintMyBullet(g);
-
-        paintEnemies(g);
-
-        dealCollide();
-        paintExplodes(g);
+        gm.paint(g);
     }
 
-    private void paintExplodes(Graphics g) {
-        for (int i = 0; i < explodes.size(); ++i) {
-            explodes.get(i).paint(g);
-        }
-    }
-
-    private void dealCollide() {
-        for (int i = 0; i < bullets.size(); ++i) {
-            for (int j = 0; j < enemies.size(); ++j) {
-                bullets.get(i).collideWith(enemies.get(j));
-            }
-        }
-    }
-
-    private void paintEnemies(Graphics g) {
-        for (int i = 0; i < enemies.size(); ++i) {
-            BaseTank enemy = enemies.get(i);
-            enemy.paint(g);
-        }
-    }
-
-    private void paintMyBullet(Graphics g) {
-//        bullets.forEach(bullet->{
-//            bullet.paint(g);
-//            if(!bullet.isLive(GAME_WIDTH, GAME_HEIGHT)) {
-//                bullets.remove(bullet);
-//            }
-//        });
-        for (int i = 0; i < bullets.size(); i++) {
-            BaseBullet bullet = bullets.get(i);
-            bullet.paint(g);
-        }
-    }
-
-    private void paintMyTank(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + enemies.size(), 10, 90);
-        g.setColor(c);
-
-        tank1.paint(g);
-    }
 
     /**
      * 双缓冲，解决闪烁问题
@@ -174,7 +102,7 @@ public class TankFrame extends Frame {
                     dD = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    tank1.fire();
+                    gm.selfTank.fire();
                 default:
                     break;
             }
@@ -187,16 +115,16 @@ public class TankFrame extends Frame {
             if (!dL && !dR && !dU && !dD) {
             } else {
                 if (dL) {
-                    tank1.setDir(DirEnum.LEFT);
+                    ((Tank)gm.selfTank).setDir(DirEnum.LEFT);
                 }
                 if (dR) {
-                    tank1.setDir(DirEnum.RIGHT);
+                    ((Tank)gm.selfTank).setDir(DirEnum.RIGHT);
                 }
                 if (dU) {
-                    tank1.setDir(DirEnum.UP);
+                    ((Tank)gm.selfTank).setDir(DirEnum.UP);
                 }
                 if (dD) {
-                    tank1.setDir(DirEnum.DOWN);
+                    ((Tank)gm.selfTank).setDir(DirEnum.DOWN);
                 }
             }
         }

@@ -4,6 +4,7 @@ package com.cf.tank.factory.tank;
 import com.cf.tank.DirEnum;
 import com.cf.tank.Group;
 import com.cf.tank.TankFrame;
+import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
 import java.util.Random;
@@ -22,7 +23,7 @@ public abstract class BaseTank {
     protected int y;
     protected Group group = Group.BAD;
     protected Rectangle rectangle;
-    protected TankFrame tf;
+    protected GameModel gm;
     protected DirEnum dir = DirEnum.DOWN;
 
     public int getX() {
@@ -74,7 +75,7 @@ public abstract class BaseTank {
                 break;
             case RIGHT:
                 x += speed;
-                x = x > tf.GAME_WIDTH - 50 ? tf.GAME_WIDTH - 50 : x;
+                x = x > TankFrame.GAME_WIDTH - 50 ? TankFrame.GAME_WIDTH - 50 : x;
                 break;
             case UP:
                 y -= speed;
@@ -82,7 +83,7 @@ public abstract class BaseTank {
                 break;
             case DOWN:
                 y += speed;
-                y = y > tf.GAME_HEIGHT - 50 ? tf.GAME_HEIGHT - 50 : y;
+                y = y > TankFrame.GAME_HEIGHT - 50 ? TankFrame.GAME_HEIGHT - 50 : y;
                 break;
             default:
                 break;

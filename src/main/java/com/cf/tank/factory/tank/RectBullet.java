@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
 
@@ -14,22 +15,22 @@ public class RectBullet extends BaseBullet {
 
     public static final int WIDTH = ResourceMgr.bulletL.getWidth(), HEIGH = ResourceMgr.bulletL.getHeight();
 
-    public RectBullet(int x, int y, DirEnum dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rectangle = new Rectangle();
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        tf.getBullets().add(this);
+        gm.getBullets().add(this);
     }
 
     @Override
-    protected BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
-        return tf.rectFactory.createExplode(x, y, group, tf);
+    protected BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
+        return gm.rectFactory.createExplode(x, y, group, gm);
     }
 
     @Override
@@ -38,8 +39,8 @@ public class RectBullet extends BaseBullet {
         g.setColor(Color.RED);
         g.fillRect(x, y, WIDTH, HEIGH);
         g.setColor(c);
-        if(!isLive(tf.GAME_WIDTH, tf.GAME_HEIGHT)) {
-            tf.getBullets().remove(this);
+        if(!isLive(TankFrame.GAME_WIDTH, TankFrame.GAME_HEIGHT)) {
+            gm.getBullets().remove(this);
             return;
         }
         updateCor(SPEED);

@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.facade.GameModel;
 
 /**
  * @program: design-pattern-tank
@@ -11,15 +12,15 @@ import com.cf.tank.*;
 public class DefaultFactory extends GameAbsFactory{
 
     @Override
-    public BaseTank createTank(int x, int y, DirEnum dir, Group group, TankFrame tf) {
-        return new Tank(x, y, dir, group, tf);
+    public BaseTank createTank(int x, int y, DirEnum dir, Group group, GameModel gm) {
+        return new Tank(x, y, dir, group, gm);
     }
     @Override
-    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group, TankFrame tf) {
-        return new Bullet(x, y, dir, group, tf);
+    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
+        return new Bullet(x, y, dir, group, gm);
     }
     @Override
-    public BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
-        return new Explode(x, y, tf);
+    public BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
+        return new Explode(x, y, gm);
     }
 }

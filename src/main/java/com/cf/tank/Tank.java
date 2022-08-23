@@ -1,5 +1,6 @@
 package com.cf.tank;
 
+import com.cf.tank.facade.GameModel;
 import com.cf.tank.factory.tank.BaseTank;
 import com.cf.tank.strategy.FireStrategy;
 
@@ -19,12 +20,12 @@ public class Tank extends BaseTank {
     private static final int SPEED = 5;
     private FireStrategy fs;
 
-    public Tank(int x, int y, DirEnum dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, DirEnum dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
 
         rectangle = new Rectangle();
         rectangle.height = HEIGH;
@@ -57,7 +58,7 @@ public class Tank extends BaseTank {
     public void fire() {
         int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = y + Tank.HEIGH/2 - Bullet.HEIGH/2;
-        tf.defaultFactory.createBullet(bX, bY, dir, group, tf);
+        gm.defaultFactory.createBullet(bX, bY, dir, group, gm);
     }
 
     @Override
@@ -95,14 +96,14 @@ public class Tank extends BaseTank {
 
     @Override
     public void die() {
-        tf.getEnemies().remove(this);
+        gm.getEnemies().remove(this);
     }
 
     public DirEnum getDir() {
         return dir;
     }
 
-    public TankFrame getTf() {
-        return tf;
+    public GameModel getGm() {
+        return gm;
     }
 }

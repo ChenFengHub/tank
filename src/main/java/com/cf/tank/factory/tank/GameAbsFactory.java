@@ -3,6 +3,7 @@ package com.cf.tank.factory.tank;
 import com.cf.tank.DirEnum;
 import com.cf.tank.Group;
 import com.cf.tank.TankFrame;
+import com.cf.tank.facade.GameModel;
 
 /**
  * @program: design-pattern-tank
@@ -12,7 +13,7 @@ import com.cf.tank.TankFrame;
  * @create: 2022-08-19 07:07:31
  */
 public abstract class GameAbsFactory {
-    public abstract BaseTank createTank(int x, int y, DirEnum dir, Group group, TankFrame tf);
-    public abstract BaseBullet createBullet(int x, int y, DirEnum dir, Group group, TankFrame tf);
-    public abstract BaseExplode createExplode(int x, int y, Group group, TankFrame tf);
+    public abstract BaseTank createTank(int x, int y, DirEnum dir, Group group, GameModel gm);
+    public abstract BaseBullet createBullet(int x, int y, DirEnum dir, Group group, GameModel gm);
+    public abstract BaseExplode createExplode(int x, int y, Group group, GameModel gm);
 }

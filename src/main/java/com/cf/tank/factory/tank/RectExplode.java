@@ -3,6 +3,7 @@ package com.cf.tank.factory.tank;
 import com.cf.tank.Audio;
 import com.cf.tank.ResourceMgr;
 import com.cf.tank.TankFrame;
+import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,17 +21,17 @@ public class RectExplode extends BaseExplode {
 
     private int x,y;
     private int step =0;
-    private TankFrame tf = null;
+    private GameModel gm = null;
     private Boolean living = true;
 
-    public RectExplode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, GameModel gm) {
         this.x = x;
         this.y = y;
-        this.tf = tf;
+        this.gm = gm;
         new Thread(()->{
             new Audio("audio/explode.wav").play();
         }).start();
-        tf.getExplodes().add(this);
+        gm.getExplodes().add(this);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class RectExplode extends BaseExplode {
             step++;
             if(step > 5) {
                 living = false;
-                tf.getExplodes().remove(this);
+                gm.getExplodes().remove(this);
             }
             g.setColor(c);
         }

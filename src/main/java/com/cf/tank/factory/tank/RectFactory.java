@@ -3,6 +3,7 @@ package com.cf.tank.factory.tank;
 import com.cf.tank.DirEnum;
 import com.cf.tank.Group;
 import com.cf.tank.TankFrame;
+import com.cf.tank.facade.GameModel;
 
 /**
  * @program: design-pattern-tank
@@ -13,17 +14,17 @@ import com.cf.tank.TankFrame;
 public class RectFactory extends GameAbsFactory {
 
     @Override
-    public BaseTank createTank(int x, int y, DirEnum dir, Group group, TankFrame tf) {
-        return new RectTank(x, y, dir, group, tf);
+    public BaseTank createTank(int x, int y, DirEnum dir, Group group, GameModel gm) {
+        return new RectTank(x, y, dir, group, gm);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group, TankFrame tf) {
-        return new RectBullet(x, y, dir, group, tf);
+    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
+        return new RectBullet(x, y, dir, group, gm);
     }
 
     @Override
-    public BaseExplode createExplode(int x, int y, Group group, TankFrame tf) {
-        return new RectExplode(x, y, tf);
+    public BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
+        return new RectExplode(x, y, gm);
     }
 }

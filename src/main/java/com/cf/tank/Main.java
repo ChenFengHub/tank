@@ -22,10 +22,11 @@ public class Main {
 
         Integer initTankCount = PropertyMgr.getInt("initTankCount");
         for (int i = 0; i < initTankCount; ++i) {
-            BaseTank tank = tankFrame.rectFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD, tankFrame);
-            tankFrame.getEnemies().add(tank);
+            BaseTank tank = tankFrame.gm.rectFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD, tankFrame.gm);
+            tankFrame.gm.getEnemies().add(tank);
         }
 
+        new Thread(()->new Audio("audio/war1.wav").loop()).start();
         while (true) {
             Thread.sleep(50);
             tankFrame.repaint();
