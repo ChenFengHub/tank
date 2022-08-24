@@ -4,6 +4,7 @@ import com.cf.tank.*;
 import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @program: design-pattern-tank
@@ -24,6 +25,12 @@ public class RectTank extends BaseTank {
         rectangle = new Rectangle();
         rectangle.height = HEIGH;
         rectangle.width = WIDTH;
+
+        if(Group.BAD.equals(group)) {
+            Random random = new Random();
+            this.x += random.nextInt(100);
+            this.y += random.nextInt(100);
+        }
     }
 
     @Override
@@ -45,12 +52,13 @@ public class RectTank extends BaseTank {
         // 1. 用于更新区域，可用于判断与其他坦克是否有碰撞
         rectangle.x = x;
         rectangle.y = y;
+
     }
 
 
     @Override
     public void die() {
-        gm.getEnemies().remove(this);
+        gm.getGos().remove(this);
     }
 
 }

@@ -3,6 +3,7 @@ package com.cf.tank.factory.tank;
 
 import com.cf.tank.DirEnum;
 import com.cf.tank.Group;
+import com.cf.tank.mediator.GameObject;
 import com.cf.tank.TankFrame;
 import com.cf.tank.facade.GameModel;
 
@@ -15,24 +16,18 @@ import java.util.Random;
  * @author: Mr.CF
  * @create: 2022-08-19 07:07:28
  */
-public abstract class BaseTank {
+public abstract class BaseTank extends GameObject {
     private static final int SPEED = 5;
     private Random random = new Random();
 
-    protected int x;
-    protected int y;
     protected Group group = Group.BAD;
     protected Rectangle rectangle;
     protected GameModel gm;
     protected DirEnum dir = DirEnum.DOWN;
 
-    public int getX() {
-        return x;
-    }
 
-    public int getY() {
-        return y;
-    }
+    protected int oldX, oldY;
+
 
     public Rectangle getRectangle() {
         return rectangle;
@@ -67,6 +62,12 @@ public abstract class BaseTank {
         }
     }
 
+    public void restoreXY(){
+        if(oldX != x && oldY != y) {
+            oldX = x;
+            oldY = y;
+        }
+    }
     protected void updateCoordinate(int speed) {
         switch (dir) {
             case LEFT:
@@ -88,6 +89,14 @@ public abstract class BaseTank {
             default:
                 break;
         }
+    }
+
+    /**
+     * 后退到前一步
+     */
+    public void retreat() {
+        x = oldX;
+        y = oldY;
     }
 
     public abstract void fire();

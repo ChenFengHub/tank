@@ -75,6 +75,7 @@ public class Tank extends BaseTank {
         // 1. 用于更新区域，可用于判断与其他坦克是否有碰撞
         rectangle.x = x;
         rectangle.y = y;
+
     }
 
 
@@ -96,7 +97,7 @@ public class Tank extends BaseTank {
 
     @Override
     public void die() {
-        gm.getEnemies().remove(this);
+        gm.getGos().remove(this);
     }
 
     public DirEnum getDir() {

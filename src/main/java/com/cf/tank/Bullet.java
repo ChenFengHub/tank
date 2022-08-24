@@ -28,7 +28,7 @@ public class Bullet extends BaseBullet {
         rectangle = new Rectangle();
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        gm.getBullets().add(this);
+        gm.getGos().add(this);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Bullet extends BaseBullet {
 //        g.fillOval(x, y, WIDTH, HEIGH);
 //        g.setColor(c);
         if(!isLive(TankFrame.GAME_WIDTH, TankFrame.GAME_HEIGHT)) {
-            gm.getBullets().remove(this);
+            gm.getGos().remove(this);
             return;
         }
         g.drawImage(choseBulletImage(), x, y, null);

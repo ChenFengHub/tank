@@ -20,12 +20,6 @@ public class Main {
 
         // 1. 初始化地方坦克
 
-        Integer initTankCount = PropertyMgr.getInt("initTankCount");
-        for (int i = 0; i < initTankCount; ++i) {
-            BaseTank tank = tankFrame.gm.rectFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD, tankFrame.gm);
-            tankFrame.gm.getEnemies().add(tank);
-        }
-
         new Thread(()->new Audio("audio/war1.wav").loop()).start();
         while (true) {
             Thread.sleep(50);

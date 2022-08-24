@@ -31,7 +31,7 @@ public class RectExplode extends BaseExplode {
         new Thread(()->{
             new Audio("audio/explode.wav").play();
         }).start();
-        gm.getExplodes().add(this);
+        gm.getGos().add(this);
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RectExplode extends BaseExplode {
             step++;
             if(step > 5) {
                 living = false;
-                gm.getExplodes().remove(this);
+                gm.getGos().remove(this);
             }
             g.setColor(c);
         }

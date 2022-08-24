@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.mediator.GameObject;
 import com.cf.tank.facade.GameModel;
 
 import java.awt.*;
@@ -11,16 +12,15 @@ import java.awt.*;
  * @author: Mr.CF
  * @create: 2022-08-19 07:07:29
  */
-public abstract class BaseBullet {
+public abstract class BaseBullet extends GameObject {
     protected final int SPEED = 10;
-    protected int x, y;
     protected DirEnum dir = DirEnum.DOWN;
     protected GameModel gm = null;
     protected Boolean living = true;
     protected Group group = Group.BAD;
     protected Rectangle rectangle;
 
-    public void collideWith(BaseTank tank) {
+    public boolean collideWith(BaseTank tank) {
         if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
             int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
             int eY = tank.getY() + Tank.HEIGH/2 - Explode.HEIGH/2;
@@ -29,6 +29,9 @@ public abstract class BaseBullet {
             // tf.gf.createExplode(eX, eY, group, tf);
             this.die();
             tank.die();
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -53,7 +56,6 @@ public abstract class BaseBullet {
         }
     }
 
-    public abstract void paint(Graphics g);
     public void die() {
         this.living = false;
     }

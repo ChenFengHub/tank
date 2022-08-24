@@ -3,3 +3,5 @@ gameWidth=1080
 gameHeight=900
 goodFS=com.cf.tank.strategy.FourDirFireStrategy
 badFS=com.cf.tank.strategy.DefaultFireStrategy
+colliders=com.cf.tank.facade.TankBulletCollider,com.cf.tank.facade.TankTankCollider,com.cf.tank.facade.TankWallCollider
+initWallCount=10

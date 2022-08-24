@@ -1,6 +1,7 @@
 package com.cf.tank.factory.tank;
 
-import java.awt.*;
+import com.cf.tank.mediator.GameObject;
+
 
 /**
  * @program: design-pattern-tank
@@ -8,6 +9,5 @@ import java.awt.*;
  * @author: Mr.CF
  * @create: 2022-08-19 07:07:29
  */
-public abstract class BaseExplode {
-    public abstract void paint(Graphics g);
+public abstract class BaseExplode extends GameObject {
 }

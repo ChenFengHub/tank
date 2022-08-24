@@ -29,7 +29,7 @@ public class Explode extends BaseExplode {
         new Thread(()->{
             new Audio("audio/explode.wav").play();
         }).start();
-        gm.getExplodes().add(this);
+        gm.getGos().add(this);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Explode extends BaseExplode {
             step++;
             if(step >= 16) {
                 living = false;
-                gm.getExplodes().remove(this);
+                gm.getGos().remove(this);
             }
         }
     }
