@@ -13,7 +13,7 @@ import com.cf.tank.facade.GameModel;
  * @create: 2022-08-19 07:07:31
  */
 public abstract class GameAbsFactory {
-    public abstract BaseTank createTank(int x, int y, DirEnum dir, Group group, GameModel gm);
-    public abstract BaseBullet createBullet(int x, int y, DirEnum dir, Group group, GameModel gm);
-    public abstract BaseExplode createExplode(int x, int y, Group group, GameModel gm);
+    public abstract BaseTank createTank(int x, int y, DirEnum dir, Group group);
+    public abstract BaseBullet createBullet(int x, int y, DirEnum dir, Group group);
+    public abstract BaseExplode createExplode(int x, int y, Group group);
 }

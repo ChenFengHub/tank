@@ -21,17 +21,11 @@ public abstract class BaseTank extends GameObject {
     private Random random = new Random();
 
     protected Group group = Group.BAD;
-    protected Rectangle rectangle;
-    protected GameModel gm;
     protected DirEnum dir = DirEnum.DOWN;
 
 
     protected int oldX, oldY;
 
-
-    public Rectangle getRectangle() {
-        return rectangle;
-    }
 
     public Group getGroup() {
         return group;

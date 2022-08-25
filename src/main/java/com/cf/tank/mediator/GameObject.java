@@ -9,6 +9,7 @@ import java.awt.*;
  * @create: 2022-08-24 08:08:04
  */
 public abstract class GameObject {
+    protected Rectangle rectangle;
     protected int x, y;
     public int getX() {
         return x;
@@ -19,4 +20,8 @@ public abstract class GameObject {
 
 
     public abstract void paint(Graphics g);
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
 }

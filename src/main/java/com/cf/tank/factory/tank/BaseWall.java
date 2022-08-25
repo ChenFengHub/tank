@@ -12,7 +12,6 @@ import java.awt.*;
  */
 public abstract class BaseWall extends GameObject {
     protected final int WIDTH = 100, HEIGH = 30;
-    Rectangle rectangle;
     public BaseWall() {
         rectangle = new Rectangle();
         rectangle.height = HEIGH;

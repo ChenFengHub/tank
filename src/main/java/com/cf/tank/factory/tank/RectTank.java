@@ -15,11 +15,10 @@ import java.util.Random;
 public class RectTank extends BaseTank {
     public static final int WIDTH = ResourceMgr.goodTankL.getWidth(), HEIGH = ResourceMgr.goodTankL.getHeight();
 
-    public RectTank(int x, int y, DirEnum dir, Group group, GameModel gm) {
+    public RectTank(int x, int y, DirEnum dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
 
         rectangle = new Rectangle();
@@ -37,7 +36,7 @@ public class RectTank extends BaseTank {
     public void fire() {
         int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = y + Tank.HEIGH/2 - Bullet.HEIGH/2;
-        gm.rectFactory.createBullet(bX, bY, dir, group, gm);
+        GameModel.getInstance().rectFactory.createBullet(bX, bY, dir, group);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class RectTank extends BaseTank {
 
     @Override
     public void die() {
-        gm.getGos().remove(this);
+        GameModel.getInstance().getGos().remove(this);
     }
 
 }

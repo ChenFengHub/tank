@@ -19,17 +19,15 @@ public class Explode extends BaseExplode {
 
     private int x,y;
     private int step =0;
-    private GameModel gm = null;
     private Boolean living = true;
 
-    public Explode(int x, int y, GameModel gm) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gm = gm;
         new Thread(()->{
             new Audio("audio/explode.wav").play();
         }).start();
-        gm.getGos().add(this);
+        GameModel.getInstance().getGos().add(this);
     }
 
     @Override
@@ -40,7 +38,7 @@ public class Explode extends BaseExplode {
             step++;
             if(step >= 16) {
                 living = false;
-                gm.getGos().remove(this);
+                GameModel.getInstance().getGos().remove(this);
             }
         }
     }

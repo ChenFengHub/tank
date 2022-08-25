@@ -21,7 +21,6 @@ public class TankFrame extends Frame {
     public static int GAME_WIDTH = PropertyMgr.getInt("gameWidth"), GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
     /** 这里可以通过配置文件，动态切换一套皮肤 **/
     public GameAbsFactory gf = new RectFactory();
-    public GameModel gm = new GameModel();
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -46,7 +45,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        gm.paint(g);
+        GameModel.getInstance().paint(g);
     }
 
 
@@ -102,7 +101,7 @@ public class TankFrame extends Frame {
                     dD = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    ((BaseTank)gm.selfTank).fire();
+                    ((BaseTank)GameModel.getInstance().selfTank).fire();
                 default:
                     break;
             }
@@ -115,16 +114,16 @@ public class TankFrame extends Frame {
             if (!dL && !dR && !dU && !dD) {
             } else {
                 if (dL) {
-                    ((Tank)gm.selfTank).setDir(DirEnum.LEFT);
+                    ((Tank)GameModel.getInstance().selfTank).setDir(DirEnum.LEFT);
                 }
                 if (dR) {
-                    ((Tank)gm.selfTank).setDir(DirEnum.RIGHT);
+                    ((Tank)GameModel.getInstance().selfTank).setDir(DirEnum.RIGHT);
                 }
                 if (dU) {
-                    ((Tank)gm.selfTank).setDir(DirEnum.UP);
+                    ((Tank)GameModel.getInstance().selfTank).setDir(DirEnum.UP);
                 }
                 if (dD) {
-                    ((Tank)gm.selfTank).setDir(DirEnum.DOWN);
+                    ((Tank)GameModel.getInstance().selfTank).setDir(DirEnum.DOWN);
                 }
             }
         }

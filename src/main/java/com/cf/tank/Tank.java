@@ -20,12 +20,11 @@ public class Tank extends BaseTank {
     private static final int SPEED = 5;
     private FireStrategy fs;
 
-    public Tank(int x, int y, DirEnum dir, Group group, GameModel gm) {
+    public Tank(int x, int y, DirEnum dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rectangle = new Rectangle();
         rectangle.height = HEIGH;
@@ -58,7 +57,7 @@ public class Tank extends BaseTank {
     public void fire() {
         int bX = x + Tank.WIDTH/2 - Bullet.WIDTH/2;
         int bY = y + Tank.HEIGH/2 - Bullet.HEIGH/2;
-        gm.defaultFactory.createBullet(bX, bY, dir, group, gm);
+        GameModel.getInstance().defaultFactory.createBullet(bX, bY, dir, group);
     }
 
     @Override
@@ -97,14 +96,11 @@ public class Tank extends BaseTank {
 
     @Override
     public void die() {
-        gm.getGos().remove(this);
+        GameModel.getInstance().getGos().remove(this);
     }
 
     public DirEnum getDir() {
         return dir;
     }
 
-    public GameModel getGm() {
-        return gm;
-    }
 }

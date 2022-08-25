@@ -19,10 +19,12 @@ import java.util.List;
  * @create: 2022-08-23 07:07:50
  */
 public class GameModel {
+    private static GameModel INSTANCE = new GameModel();
 
-    //    private List<BaseTank> enemies = new ArrayList<>();
-//    private List<BaseBullet> bullets = new ArrayList<>();
-//    private List<BaseExplode> explodes = new ArrayList<>();
+    static {
+        INSTANCE.init();
+    }
+
     private List<GameObject> gos = new LinkedList<>();
     private ColliderChain colliderChain = new ColliderChain();
 
@@ -31,7 +33,7 @@ public class GameModel {
      **/
     public DefaultFactory defaultFactory = new DefaultFactory();
     public RectFactory rectFactory = new RectFactory();
-    public GameObject selfTank = defaultFactory.createTank(100, 60, DirEnum.DOWN, Group.GOOD, this);
+    public GameObject selfTank = defaultFactory.createTank(100, 60, DirEnum.DOWN, Group.GOOD);
 
     public void setGos(List<GameObject> gos) {
         this.gos = gos;
@@ -41,11 +43,11 @@ public class GameModel {
         return gos;
     }
 
-    public GameModel() {
+    private void init() {
         // 1.初始化地方坦克
         Integer initTankCount = PropertyMgr.getInt(ConfigConstant.IINIT_TANK_COUNT);
         for (int i = 0; i < initTankCount; ++i) {
-            BaseTank tank = defaultFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD, this);
+            BaseTank tank = defaultFactory.createTank(50 + i * 80, 200, DirEnum.DOWN, Group.BAD);
             gos.add(tank);
         }
         // 2. 初始化墙壁
@@ -53,12 +55,23 @@ public class GameModel {
         for (int i = 0; i < initWallCount; ++i) {
             gos.add(new Wall(200+40* i, 50 *i));
         }
-//        this.gos.add(selfTank);
+    }
+
+    private GameModel() {
+
+    }
+
+    /**
+     * 单例模式，解耦合。其他类就不需要传入 GameModel 对象，直接使用 GameModel.getInstance() 单例即可
+     * @return
+     */
+    public static GameModel getInstance() {
+        return INSTANCE;
     }
 
     public void paint(Graphics g) {
+        paintBulletCountAndEnemyTankCount(g);
         paintMyTank(g);
-
         paintGo(g);
 
 //        paintMyBullet(g);
@@ -66,6 +79,25 @@ public class GameModel {
 //        dealCollide();
 //        paintExplodes(g);
     }
+
+    private void paintBulletCountAndEnemyTankCount(Graphics g) {
+        int enemyCount = 0;
+        int bulletCount = 0;
+        for(int i = 0; i<gos.size(); i++) {
+            if(gos.get(i) instanceof BaseTank && Group.BAD.equals(((BaseTank) gos.get(i)).getGroup())) {
+                enemyCount++;
+            }
+            if(gos.get(i) instanceof BaseBullet) {
+                bulletCount++;
+            }
+        }
+        Color c = g.getColor();
+        g.setColor(Color.WHITE);
+        g.drawString("敌军数目：" + enemyCount, 10 , 50);
+        g.drawString("子弹数目：" + bulletCount, 10, 80);
+        g.setColor(c);
+    }
+
 
     private void paintGo(Graphics g) {
         for (int i = 0; i < gos.size(); i++) {

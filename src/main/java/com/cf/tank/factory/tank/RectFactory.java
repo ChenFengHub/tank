@@ -14,17 +14,17 @@ import com.cf.tank.facade.GameModel;
 public class RectFactory extends GameAbsFactory {
 
     @Override
-    public BaseTank createTank(int x, int y, DirEnum dir, Group group, GameModel gm) {
-        return new RectTank(x, y, dir, group, gm);
+    public BaseTank createTank(int x, int y, DirEnum dir, Group group) {
+        return new RectTank(x, y, dir, group);
     }
 
     @Override
-    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
-        return new RectBullet(x, y, dir, group, gm);
+    public BaseBullet createBullet(int x, int y, DirEnum dir, Group group) {
+        return new RectBullet(x, y, dir, group);
     }
 
     @Override
-    public BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
-        return new RectExplode(x, y, gm);
+    public BaseExplode createExplode(int x, int y, Group group) {
+        return new RectExplode(x, y);
     }
 }

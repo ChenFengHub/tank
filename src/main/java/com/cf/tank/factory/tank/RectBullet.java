@@ -15,22 +15,16 @@ public class RectBullet extends BaseBullet {
 
     public static final int WIDTH = ResourceMgr.bulletL.getWidth(), HEIGH = ResourceMgr.bulletL.getHeight();
 
-    public RectBullet(int x, int y, DirEnum dir, Group group, GameModel gm) {
+    public RectBullet(int x, int y, DirEnum dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
 
         rectangle = new Rectangle();
         rectangle.width = WIDTH;
         rectangle.height = HEIGH;
-        gm.getGos().add(this);
-    }
-
-    @Override
-    protected BaseExplode createExplode(int x, int y, Group group, GameModel gm) {
-        return gm.rectFactory.createExplode(x, y, group, gm);
+        GameModel.getInstance().getGos().add(this);
     }
 
     @Override
@@ -40,7 +34,7 @@ public class RectBullet extends BaseBullet {
         g.fillRect(x, y, WIDTH, HEIGH);
         g.setColor(c);
         if(!isLive(TankFrame.GAME_WIDTH, TankFrame.GAME_HEIGHT)) {
-            gm.getGos().remove(this);
+            GameModel.getInstance().getGos().remove(this);
             return;
         }
         updateCor(SPEED);
