@@ -1,6 +1,8 @@
 package com.cf.tank.factory.tank;
 
 import com.cf.tank.*;
+import com.cf.tank.decorator.RectBulletDecorator;
+import com.cf.tank.decorator.TailBulletDecorator;
 import com.cf.tank.facade.GameModel;
 
 /**
@@ -17,7 +19,7 @@ public class DefaultFactory extends GameAbsFactory{
     }
     @Override
     public BaseBullet createBullet(int x, int y, DirEnum dir, Group group) {
-        return new Bullet(x, y, dir, group);
+        return new TailBulletDecorator(new Bullet(x, y, dir, group));
     }
     @Override
     public BaseExplode createExplode(int x, int y, Group group) {

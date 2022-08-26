@@ -43,4 +43,14 @@ public class Explode extends BaseExplode {
         }
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
+
 }

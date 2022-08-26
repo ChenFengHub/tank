@@ -46,4 +46,14 @@ public class RectExplode extends BaseExplode {
             g.setColor(c);
         }
     }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
 }

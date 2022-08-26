@@ -54,6 +54,16 @@ public class RectTank extends BaseTank {
 
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
+
 
     @Override
     public void die() {

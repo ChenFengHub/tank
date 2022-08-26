@@ -24,4 +24,14 @@ public class Wall extends BaseWall {
         g.fillRect(x, y, WIDTH, HEIGH);
         g.setColor(c);
     }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
 }

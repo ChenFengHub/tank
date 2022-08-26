@@ -48,6 +48,16 @@ public class Bullet extends BaseBullet {
         rectangle.y = y;
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
+
     private BufferedImage choseBulletImage() {
         switch (dir) {
             case LEFT:

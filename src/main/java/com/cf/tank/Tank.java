@@ -77,6 +77,15 @@ public class Tank extends BaseTank {
 
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
 
 
     private BufferedImage choseTankImage() {

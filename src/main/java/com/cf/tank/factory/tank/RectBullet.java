@@ -43,6 +43,16 @@ public class RectBullet extends BaseBullet {
         rectangle.y = y;
     }
 
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGH;
+    }
+
     public Boolean isLive(int maxWidth, int maxHeight) {
         if(!living || x < 0 || x > maxWidth || y < 0 || y > maxHeight) {
             return false;
