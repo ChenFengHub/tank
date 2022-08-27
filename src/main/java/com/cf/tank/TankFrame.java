@@ -2,6 +2,8 @@ package com.cf.tank;
 
 import com.cf.tank.facade.GameModel;
 import com.cf.tank.factory.tank.*;
+import com.cf.tank.observer.TankFireEvent;
+import com.cf.tank.observer.TankFireHandler;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -101,7 +103,8 @@ public class TankFrame extends Frame {
                     dD = true;
                     break;
                 case KeyEvent.VK_SPACE:
-                    ((BaseTank)GameModel.getInstance().selfTank).fire();
+                    TankFireEvent fe = new TankFireEvent((BaseTank)GameModel.getInstance().selfTank);
+                    TankFireHandler.getInstance().fire(fe);
                 default:
                     break;
             }

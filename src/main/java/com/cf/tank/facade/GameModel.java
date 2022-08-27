@@ -7,6 +7,8 @@ import com.cf.tank.Wall;
 import com.cf.tank.constant.ConfigConstant;
 import com.cf.tank.mediator.GameObject;
 import com.cf.tank.factory.tank.*;
+import com.cf.tank.observer.BasicTankFireObserver;
+import com.cf.tank.observer.TankFireHandler;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -23,10 +25,13 @@ public class GameModel {
 
     static {
         INSTANCE.init();
+
+        TankFireHandler.getInstance().addListenet(new BasicTankFireObserver());
     }
 
     private List<GameObject> gos = new LinkedList<>();
     private ColliderChain colliderChain = new ColliderChain();
+
 
     /**
      * 全部的抽象工厂
@@ -34,6 +39,7 @@ public class GameModel {
     public DefaultFactory defaultFactory = new DefaultFactory();
     public RectFactory rectFactory = new RectFactory();
     public GameObject selfTank = defaultFactory.createTank(100, 60, DirEnum.DOWN, Group.GOOD);
+
 
     public void setGos(List<GameObject> gos) {
         this.gos = gos;
