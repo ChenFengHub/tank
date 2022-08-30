@@ -5,3 +5,4 @@ goodFS=com.cf.tank.strategy.FourDirFireStrategy
 badFS=com.cf.tank.strategy.DefaultFireStrategy
 colliders=com.cf.tank.facade.TankBulletCollider,com.cf.tank.facade.TankTankCollider,com.cf.tank.facade.TankWallCollider,com.cf.tank.facade.BulletWallCollider
 initWallCount=10
+user.dir=D:\a-source\my-java-project\2022\mashibing\design-pattern-tank\src\main\java
