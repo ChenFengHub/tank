@@ -20,7 +20,7 @@ public class Main {
 
         // 1. 初始化地方坦克
 
-        new Thread(()->new Audio("audio/war1.wav").loop()).start();
+//        new Thread(()->new Audio("audio/war1.wav").loop()).start();
         while (true) {
             Thread.sleep(50);
             tankFrame.repaint();

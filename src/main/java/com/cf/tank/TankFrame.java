@@ -105,6 +105,13 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_SPACE:
                     TankFireEvent fe = new TankFireEvent((BaseTank)GameModel.getInstance().selfTank);
                     TankFireHandler.getInstance().fire(fe);
+                    break;
+                case KeyEvent.VK_S:
+                    GameModel.getInstance().save();
+                    break;
+                case KeyEvent.VK_L:
+                    GameModel.getInstance().load();
+                    break;
                 default:
                     break;
             }

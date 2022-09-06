@@ -1,4 +1,4 @@
-package com.cf.tank.cof;
+package com.cf.tank.cor;
 
 
 import java.util.ArrayList;

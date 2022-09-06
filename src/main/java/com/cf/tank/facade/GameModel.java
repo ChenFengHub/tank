@@ -1,9 +1,6 @@
 package com.cf.tank.facade;
 
-import com.cf.tank.DirEnum;
-import com.cf.tank.Group;
-import com.cf.tank.PropertyMgr;
-import com.cf.tank.Wall;
+import com.cf.tank.*;
 import com.cf.tank.constant.ConfigConstant;
 import com.cf.tank.mediator.GameObject;
 import com.cf.tank.factory.tank.*;
@@ -11,6 +8,7 @@ import com.cf.tank.observer.BasicTankFireObserver;
 import com.cf.tank.observer.TankFireHandler;
 
 import java.awt.*;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -89,6 +87,9 @@ public class GameModel {
     private void paintBulletCountAndEnemyTankCount(Graphics g) {
         int enemyCount = 0;
         int bulletCount = 0;
+        for (int i = 0; i < gos.size(); i++) {
+            checkBullet(gos.get(i));
+        }
         for(int i = 0; i<gos.size(); i++) {
             if(gos.get(i) instanceof BaseTank && Group.BAD.equals(((BaseTank) gos.get(i)).getGroup())) {
                 enemyCount++;
@@ -113,6 +114,15 @@ public class GameModel {
             }
         }
     }
+
+    private void checkBullet(GameObject go) {
+        if(go instanceof BaseBullet) {
+            if(((BaseBullet)go).isDie()) {
+                gos.remove(go);
+            }
+        }
+    }
+
 
 
 //    private void paintExplodes(Graphics g) {
@@ -154,6 +164,49 @@ public class GameModel {
         g.setColor(Color.WHITE);
         g.setColor(c);
         selfTank.paint(g);
+    }
+
+    public void save() {
+        File f = new File("D:\\a-source\\my-java-project\\2022\\mashibing\\design-pattern-tank\\target\\tank.data");
+        ObjectOutputStream ous = null;
+        try {
+            ous = new ObjectOutputStream(new FileOutputStream(f));
+            ous.writeObject(gos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(ous != null) {
+                try {
+                    ous.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void load() {
+        File f = new File("D:\\a-source\\my-java-project\\2022\\mashibing\\design-pattern-tank\\target\\tank.data");
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(f));
+            gos = (List<GameObject>) ois.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(ois != null) {
+                try {
+                    ois.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }

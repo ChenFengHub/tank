@@ -18,7 +18,8 @@ public class Tank extends BaseTank {
     public static final int WIDTH = ResourceMgr.goodTankL.getWidth(), HEIGH = ResourceMgr.goodTankL.getHeight();
 
     private static final int SPEED = 5;
-    private FireStrategy fs;
+//    private transient FireStrategy fs;
+    private transient FireStrategy fs;
 
     public Tank(int x, int y, DirEnum dir, Group group) {
         this.x = x;

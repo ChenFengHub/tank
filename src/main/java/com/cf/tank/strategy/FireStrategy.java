@@ -2,6 +2,8 @@ package com.cf.tank.strategy;
 
 import com.cf.tank.factory.tank.BaseTank;
 
-public interface FireStrategy {
+import java.io.Serializable;
+
+public interface FireStrategy extends Serializable {
     void fire(BaseTank tank);
 }

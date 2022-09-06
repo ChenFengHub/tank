@@ -17,6 +17,7 @@ public abstract class BaseBullet extends GameObject {
     protected DirEnum dir = DirEnum.DOWN;
     protected Boolean living = true;
     protected Group group = Group.BAD;
+    protected Long bornTime = System.currentTimeMillis();
 
 //    public boolean collideWith(BaseTank tank) {
 //        if(rectangle.intersects(tank.getRectangle()) && !tank.getGroup().equals(group)) {
@@ -58,6 +59,9 @@ public abstract class BaseBullet extends GameObject {
         this.living = false;
     }
 
+    public boolean isDie() {
+        return (System.currentTimeMillis() - bornTime)/1000 > 3;
+    }
     public Group getGroup() {
         return group;
     }
